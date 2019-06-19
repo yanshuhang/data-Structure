@@ -8,7 +8,7 @@ import java.util.Iterator;
  * @param <E>
  * @author 严书航
  */
-public class LinearList<E> {
+public class LinearList<E> implements Iterable<E> {
     /**
      * 存储数据的数组
      */
@@ -205,6 +205,7 @@ public class LinearList<E> {
      *
      * @return 返回迭代器
      */
+    @Override
     public Iterator<E> iterator() {
         return new Itr();
     }

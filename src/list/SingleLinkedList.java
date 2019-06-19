@@ -1,11 +1,14 @@
 package list;
 
+import java.util.Iterator;
+import java.util.ListIterator;
+
 /**
  * 数据结构之单链表
  *
  * @author 严书航
  */
-public class SingleLinkedList<E> {
+public class SingleLinkedList<E> implements Iterable<E> {
     /**
      * 指向第一个节点
      */
@@ -230,6 +233,11 @@ public class SingleLinkedList<E> {
         }
     }
 
+    @Override
+    public Iterator<E> iterator() {
+        return new Itr(0);
+    }
+
     /**
      * 链表中存储的节点
      *
@@ -251,6 +259,30 @@ public class SingleLinkedList<E> {
 
         void addNext(Node<E> node) {
             next = node;
+        }
+    }
+
+    private class Itr implements Iterator<E>{
+        private Node<E> lastRuturn;
+        private Node<E> next;
+        private int nextIndex;
+
+        public Itr(int index) {
+            next = getNode(index);
+            nextIndex = index;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return nextIndex < size;
+        }
+
+        @Override
+        public E next() {
+            lastRuturn = next;
+            next = next.next;
+            nextIndex++;
+            return lastRuturn.element;
         }
     }
 }
