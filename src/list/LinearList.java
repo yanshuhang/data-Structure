@@ -4,9 +4,9 @@ import java.util.Arrays;
 import java.util.Iterator;
 
 /**
+ * 数据结构之基于数组的顺序表
  * @param <E>
  * @author 严书航
- * @date 2019/06/19
  */
 public class LinearList<E> {
     /**
@@ -173,7 +173,7 @@ public class LinearList<E> {
      */
     private void ensureCapacity(int minCapacity) {
         if (minCapacity == data.length) {
-            int newCapacity = data.length << 2;
+            int newCapacity = data.length << 1;
             if (newCapacity < minCapacity) {
                 newCapacity = minCapacity;
             }
