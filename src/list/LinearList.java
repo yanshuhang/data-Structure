@@ -67,9 +67,7 @@ public class LinearList<E> {
      * @return 返回该索引存储的元素
      */
     public E get(int index) {
-        if (index >= size) {
-            throw new IndexOutOfBoundsException("outofbound list.LinearList size " + size + " index " + index);
-        }
+        indexCheck(index);
         return (E) this.data[index];
     }
 
@@ -80,9 +78,7 @@ public class LinearList<E> {
      * @return 返回旧元素
      */
     public E set(int index, E element) {
-        if (index >= size) {
-            throw new IndexOutOfBoundsException("outofbound list.LinearList size " + size + " index " + index);
-        }
+        indexCheck(index);
         E oldVal = get(index);
         data[index] = element;
         return oldVal;
@@ -95,9 +91,7 @@ public class LinearList<E> {
      * @return 成功返回true
      */
     public boolean insert(int index, E element) {
-        if (index >= size) {
-            throw new IndexOutOfBoundsException("outofbound list.LinearList size " + size + " index " + index);
-        }
+        indexCheck(index);
         System.arraycopy(data, index, data, index + 1, size - index);
         data[index] = element;
         size++;
@@ -110,12 +104,11 @@ public class LinearList<E> {
      * @return 返回删除的元素
      */
     public E remove(int index) {
-        if (index >= size) {
-            throw new IndexOutOfBoundsException("outofbound list.LinearList size " + size + " index " + index);
-        }
+        indexCheck(index);
         E oldVal = (E) data[index];
         System.arraycopy(data, index + 1, data, index, size - index - 1);
-        size--;
+        // 将size处索引的元素设为null 方便垃圾回收
+        data[--size] = null;
         return oldVal;
     }
 
@@ -149,5 +142,15 @@ public class LinearList<E> {
         }
         builder.append("]");
         return builder.toString();
+    }
+
+    /**
+     * 索引的合理性检查
+     * @param index 索引
+     */
+    private void indexCheck(int index) {
+        if (index >= size || index < 0) {
+            throw new IndexOutOfBoundsException("outofbound list.LinearList size " + size + " index " + index);
+        }
     }
 }
