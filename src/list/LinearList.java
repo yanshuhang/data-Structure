@@ -1,3 +1,5 @@
+package list;
+
 /**
  * @param <E>
  * @author 严书航
@@ -66,7 +68,7 @@ public class LinearList<E> {
      */
     public E get(int index) {
         if (index >= size) {
-            throw new IndexOutOfBoundsException("outofbound LinearList size " + size + " index " + index);
+            throw new IndexOutOfBoundsException("outofbound list.LinearList size " + size + " index " + index);
         }
         return (E) this.data[index];
     }
@@ -79,7 +81,7 @@ public class LinearList<E> {
      */
     public E set(int index, E element) {
         if (index >= size) {
-            throw new IndexOutOfBoundsException("outofbound LinearList size " + size + " index " + index);
+            throw new IndexOutOfBoundsException("outofbound list.LinearList size " + size + " index " + index);
         }
         E oldVal = get(index);
         data[index] = element;
@@ -94,7 +96,7 @@ public class LinearList<E> {
      */
     public boolean insert(int index, E element) {
         if (index >= size) {
-            throw new IndexOutOfBoundsException("outofbound LinearList size " + size + " index " + index);
+            throw new IndexOutOfBoundsException("outofbound list.LinearList size " + size + " index " + index);
         }
         System.arraycopy(data, index, data, index + 1, size - index);
         data[index] = element;
@@ -109,7 +111,7 @@ public class LinearList<E> {
      */
     public E remove(int index) {
         if (index >= size) {
-            throw new IndexOutOfBoundsException("outofbound LinearList size " + size + " index " + index);
+            throw new IndexOutOfBoundsException("outofbound list.LinearList size " + size + " index " + index);
         }
         E oldVal = (E) data[index];
         System.arraycopy(data, index + 1, data, index, size - index - 1);
