@@ -1,3 +1,5 @@
 *.iml
 .idea
 *test.java
+*.class
+out/production/dataStructure/META-INF/dataStructure.kotlin_module
