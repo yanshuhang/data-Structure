@@ -387,6 +387,5 @@ public class DoubleLinkedList<E> {
             this.pre = pre;
             this.next = next;
         }
-
     }
 }
