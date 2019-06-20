@@ -255,15 +255,13 @@ public class DoubleLinkedList<E> implements Iterable<E>{
     @Override
     public String toString() {
         if (size == 0) {
-            return "[]";
+            return "doubleLinkedList []";
         }
-        int k = 0;
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("[");
+        stringBuilder.append("doubleLinkedList [");
         for (Node<E> node = first; node != null; node = node.next) {
-            k++;
             stringBuilder.append(node.element);
-            if (k != size) {
+            if (node.next != null) {
                 stringBuilder.append(", ");
             }
         }

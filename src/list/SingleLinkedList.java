@@ -191,15 +191,13 @@ public class SingleLinkedList<E> implements Iterable<E> {
     @Override
     public String toString() {
         if (size == 0) {
-            return "[]";
+            return "singleLinkedList []";
         }
-        int index = 0;
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("[");
+        stringBuilder.append("singleLinkedlist [");
         for (Node<E> node = first; node != null; node = node.next) {
             stringBuilder.append(node.element);
-            index++;
-            if (index != size) {
+            if (node.next != null) {
                 stringBuilder.append(", ");
             }
         }

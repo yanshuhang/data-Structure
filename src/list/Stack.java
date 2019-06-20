@@ -8,15 +8,15 @@ public class Stack<E> {
     private int size;
     private Node<E> first;
 
+    public Stack() {
+    }
+
     public int size() {
         return size;
     }
 
     public boolean isEmpty() {
         return size == 0;
-    }
-
-    public Stack() {
     }
 
     /**
@@ -45,6 +45,23 @@ public class Stack<E> {
      */
     public E peek() {
         return first.element;
+    }
+
+    @Override
+    public String toString() {
+        if (size == 0) {
+            return "stack []";
+        }
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("stack [");
+        for (Node<E> node = first; node != null; node = node.next) {
+            stringBuilder.append(node.element);
+            if (node.next != null) {
+                stringBuilder.append(", ");
+            }
+        }
+        stringBuilder.append("]");
+        return stringBuilder.toString();
     }
 
     private static class Node<E> {

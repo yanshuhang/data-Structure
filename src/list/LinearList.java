@@ -141,10 +141,10 @@ public class LinearList<E> implements Iterable<E> {
     @Override
     public String toString() {
         if (size == 0) {
-            return "[]";
+            return "LinearList []";
         }
         StringBuilder builder = new StringBuilder();
-        builder.append("[");
+        builder.append("LinearList [");
         for (int i = 0; i < size; i++) {
             builder.append(data[i]);
             if (i < size - 1) {
