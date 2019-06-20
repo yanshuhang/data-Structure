@@ -1,5 +1,8 @@
 package list;
 
+import com.sun.org.apache.xpath.internal.operations.Lt;
+
+import java.util.Iterator;
 import java.util.ListIterator;
 
 /**
@@ -7,7 +10,7 @@ import java.util.ListIterator;
  *
  * @author 严书航
  */
-public class DoubleLinkedList<E> {
+public class DoubleLinkedList<E> implements Iterable<E>{
     private int size;
     private Node<E> first;
     private Node<E> last;
@@ -267,6 +270,34 @@ public class DoubleLinkedList<E> {
 
     public ListIterator<E> listIterator(int index) {
         return new ListItr(index);
+    }
+
+    @Override
+    public Iterator<E> iterator() {
+        return new Itr();
+    }
+
+    private class Itr implements Iterator<E> {
+        private Node<E> lastReturn;
+        private Node<E> next;
+        private int nextIndex;
+
+        public Itr() {
+            next = first;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return nextIndex < size;
+        }
+
+        @Override
+        public E next() {
+            lastReturn = next;
+            next = next.next;
+            nextIndex++;
+            return lastReturn.element;
+        }
     }
 
     private class ListItr implements ListIterator<E> {
