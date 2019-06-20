@@ -15,6 +15,9 @@ public class DoubleLinkedList<E> implements Iterable<E>{
     private Node<E> first;
     private Node<E> last;
 
+    public DoubleLinkedList() {
+    }
+
     public int size() {
         return size;
     }
