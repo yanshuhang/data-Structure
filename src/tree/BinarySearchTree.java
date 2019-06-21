@@ -26,6 +26,10 @@ public class BinarySearchTree<E> implements Iterable<E> {
         this.comparator = comparator;
     }
 
+    public Node<E> getRoot() {
+        return root;
+    }
+
     public int size() {
         return size;
     }
@@ -171,7 +175,7 @@ public class BinarySearchTree<E> implements Iterable<E> {
         }
         // 后继是叶节点直接替换
         Node<E> parent1 = succ.parent;
-        transplant(node,succ);
+        transplant(node, succ);
         parent1.left = null;
         succ.right = node.right;
         succ.left = node.left;
@@ -191,6 +195,7 @@ public class BinarySearchTree<E> implements Iterable<E> {
 
     /**
      * 删除操作各种情况有大量重复的判断 提取为一个方法 替换中只处理的父节点的关系， 子节点关系由删除的各种情况自己处理
+     *
      * @param oldNode 旧节点
      * @param newNode 新节点
      */
@@ -264,6 +269,7 @@ public class BinarySearchTree<E> implements Iterable<E> {
      * @return 返回树中比指定的元素大的最小元素
      */
     public E celling(E element) {
+        // todo
         return null;
     }
 
@@ -272,7 +278,67 @@ public class BinarySearchTree<E> implements Iterable<E> {
      * @return 返回树中比指定元素小的最大元素
      */
     public E floor(E element) {
+        // todo
         return null;
+    }
+
+    /**
+     * 先序遍历：使用递归版本
+     */
+    public void preOrderTraversal() {
+        preOrderTraversal(root);
+    }
+
+    /**
+     * 中序遍历：使用递归版本
+     */
+    public void inOrderTraversal() {
+        inOrderTraversal(root);
+    }
+
+    /**
+     * 后序遍历：使用递归版本
+     */
+    public void postOrderTraversal() {
+        postOrderTraversal(root);
+    }
+
+    private void preOrderTraversal(Node<E> node) {
+        // todo
+        System.out.println(node.element);
+        if (node.left != null) {
+            preOrderTraversal(node.left);
+        }
+        if (node.right != null) {
+            preOrderTraversal(node.right);
+        }
+    }
+
+
+    private void inOrderTraversal(Node<E> node) {
+        // todo
+        if (node.left != null) {
+            inOrderTraversal(node.left);
+        }
+        System.out.println(node.element);
+        if (node.right != null) {
+            inOrderTraversal(node.right);
+        }
+
+    }
+
+    /**
+     * 后序遍历：使用递归版本
+     */
+    private void postOrderTraversal(Node<E> node) {
+        // todo
+        if (node.left != null) {
+            postOrderTraversal(node.left);
+        }
+        if (node.right != null) {
+            postOrderTraversal(node.right);
+        }
+        System.out.println(node.element);
     }
 
     /**
