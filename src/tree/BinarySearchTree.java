@@ -190,7 +190,7 @@ public class BinarySearchTree<E> implements Iterable<E> {
     }
 
     /**
-     * 删除操作各种情况有大量重复的判断 提取为一个方法 替换中只处理的父节点的关系 子节点的删除的各种情况自己处理
+     * 删除操作各种情况有大量重复的判断 提取为一个方法 替换中只处理的父节点的关系， 子节点关系由删除的各种情况自己处理
      * @param oldNode 旧节点
      * @param newNode 新节点
      */
