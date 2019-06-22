@@ -266,19 +266,121 @@ public class BinarySearchTree<E> implements Iterable<E> {
 
     /**
      * @param element 元素可以不在树中
-     * @return 返回树中比指定的元素大的最小元素
+     * @return 返回树中比指定的元素大的最小元素 如果没有返回null，如果有相等的返回相等的元素
      */
     public E celling(E element) {
-        // todo
+        Node<E> r = root;
+        Comparator<? super E> comp = comparator;
+        if (comp != null) {
+            while (r != null) {
+                int cpVal = comp.compare(element, r.element);
+                if (cpVal < 0) {
+                    if (r.left != null) {
+                        r = r.left;
+                    } else {
+                        return r.element;
+                    }
+                } else if (cpVal > 0) {
+                    if (r.right != null) {
+                        r = r.right;
+                    } else {
+                        Node<E> parent = r.parent;
+                        while (r.parent != null && r == r.parent.right) {
+                            r = parent;
+                            parent = r.parent;
+                        }
+                        return parent.element;
+                    }
+                } else {
+                    return r.element;
+                }
+            }
+        } else {
+            Comparable<? super E> comparable = (Comparable<? super E>) element;
+            while (r != null) {
+                int cpVal = comparable.compareTo(r.element);
+                if (cpVal < 0) {
+                    if (r.left != null) {
+                        r = r.left;
+                    } else {
+                        return r.element;
+                    }
+                } else if (cpVal > 0) {
+                    if (r.right != null) {
+                        r = r.right;
+                    } else {
+                        Node<E> parent = r.parent;
+                        while (r.parent != null && r == r.parent.right) {
+                            r = parent;
+                            parent = r.parent;
+                        }
+                        return parent.element;
+                    }
+                } else {
+                    return r.element;
+                }
+            }
+        }
         return null;
     }
 
     /**
      * @param element 元素 可以不在树中
-     * @return 返回树中比指定元素小的最大元素
+     * @return 返回树中比指定元素小的最大元素，如果没有返回null，如果有相等的返回相等的元素
      */
     public E floor(E element) {
-        // todo
+        Node<E> r = root;
+        Comparator<? super E> comp = comparator;
+        if (comp != null) {
+            while (r != null) {
+                int cpVal = comp.compare(element, r.element);
+                if (cpVal > 0) {
+                    if (r.right != null) {
+                        r = r.right;
+                    } else {
+                        return r.element;
+                    }
+                } else if (cpVal < 0) {
+                    if (r.left != null) {
+                        r = r.left;
+                    } else {
+                        Node<E> parent = r.parent;
+                        while (r.parent != null && r == r.parent.left) {
+                            r = parent;
+                            parent = r.parent;
+                        }
+                        return parent.element;
+                    }
+                } else {
+                    return r.element;
+                }
+            }
+        } else {
+            Comparable<? super E> comparable = (Comparable<? super E>) element;
+            while (r != null) {
+                int cpVal = comparable.compareTo(r.element);
+                if (cpVal > 0) {
+                    if (r.right != null) {
+                        r = r.right;
+                    } else {
+                        return r.element;
+                    }
+                } else if (cpVal < 0) {
+                    if (r.left != null) {
+                        r = r.left;
+                    } else {
+                        Node<E> parent = r.parent;
+                        while (r.parent != null && r == r.parent.left) {
+                            r = parent;
+                            parent = r.parent;
+                        }
+                        return parent.element;
+                    }
+                } else {
+                    return r.element;
+                }
+            }
+        }
         return null;
     }
 
@@ -304,7 +406,6 @@ public class BinarySearchTree<E> implements Iterable<E> {
     }
 
     private void preOrderTraversal(Node<E> node) {
-        // todo
         System.out.println(node.element);
         if (node.left != null) {
             preOrderTraversal(node.left);
@@ -316,7 +417,6 @@ public class BinarySearchTree<E> implements Iterable<E> {
 
 
     private void inOrderTraversal(Node<E> node) {
-        // todo
         if (node.left != null) {
             inOrderTraversal(node.left);
         }
@@ -331,7 +431,6 @@ public class BinarySearchTree<E> implements Iterable<E> {
      * 后序遍历：使用递归版本
      */
     private void postOrderTraversal(Node<E> node) {
-        // todo
         if (node.left != null) {
             postOrderTraversal(node.left);
         }
