@@ -1,7 +1,6 @@
 package map;
 
-import java.util.Arrays;
-import java.util.Iterator;
+import java.util.*;
 
 /**
  * 使用数组的简单map实现 键值对应，key不能为null
@@ -35,9 +34,12 @@ public class SimpleMap<K, V> {
 
     public void put(K key, V value) {
         ensureCapacity(size + 1);
-        if (indexOfKey(key) == -1) {
+        int index = indexOfKey(key);
+        if (index == -1) {
             data[size] = new Node<>(key, value);
             size++;
+        } else {
+            data[index].value = value;
         }
     }
 
@@ -83,6 +85,16 @@ public class SimpleMap<K, V> {
         return -1;
     }
 
+    /**
+     * node的set集合
+     * @return
+     */
+    public Set<Map.Entry<K,V>> nodeSet() {
+        return new NodeSet();
+    }
+
+
+
     @Override
     public String toString() {
         if (size == 0) {
@@ -106,7 +118,7 @@ public class SimpleMap<K, V> {
      * @param <K>
      * @param <V>
      */
-    private static class Node<K, V> {
+    private static class Node<K, V> implements Map.Entry<K,V> {
         K key;
         V value;
 
@@ -115,9 +127,55 @@ public class SimpleMap<K, V> {
             this.value = value;
         }
 
+        public K getKey() {
+            return key;
+        }
+
+        public V getValue() {
+            return value;
+        }
+
+        @Override
+        public V setValue(V value) {
+            V oldVal = this.value;
+            this.value = value;
+            return oldVal;
+        }
+
         @Override
         public String toString() {
             return key + "=" + value;
         }
     }
+
+    private class NodeSet extends AbstractSet<Map.Entry<K, V>> {
+
+        @Override
+        public Iterator<Map.Entry<K, V>> iterator() {
+            return new NodeIterator();
+        }
+
+        @Override
+        public int size() {
+            return size;
+        }
+    }
+
+    private class NodeIterator implements Iterator<Map.Entry<K, V>> {
+        int lastReturn;
+        int next;
+
+        @Override
+        public boolean hasNext() {
+            return next < size;
+        }
+
+        @Override
+        public Node<K, V> next() {
+            lastReturn = next;
+            next++;
+            return data[lastReturn];
+        }
+    }
+
 }
