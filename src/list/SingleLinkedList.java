@@ -1,7 +1,6 @@
 package list;
 
 import java.util.Iterator;
-import java.util.ListIterator;
 
 /**
  * 数据结构之单链表
