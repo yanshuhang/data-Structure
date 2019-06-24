@@ -55,7 +55,7 @@ public class BinarySearchTree<E> implements Iterable<E> {
     public E add(E element) {
         Comparator<? super E> cpt = comparator;
         Node<E> t = root;
-        int i = 0;
+        int i;
 
         if (t == null) {
             root = new Node<>(element, null, null, null);
@@ -214,15 +214,16 @@ public class BinarySearchTree<E> implements Iterable<E> {
         }
 
     }
-
-    public boolean replace(E oldVal, E newVal) {
-        Node<E> node = getNode(oldVal);
-        if (node == null) {
-            throw new IllegalArgumentException("this is such element in BST " + oldVal);
-        }
-        node.element = newVal;
-        return true;
-    }
+    // 删除替换方法，方法错误，而且没有意义，可以先删除后插入
+//    public boolean replace(E oldVal, E newVal) {
+//        // todo 替换了之后需要找到位置 方法有错误 需要修改
+//        Node<E> node = getNode(oldVal);
+//        if (node == null) {
+//            throw new IllegalArgumentException("this is such element in BST " + oldVal);
+//        }
+//        node.element = newVal;
+//        return true;
+//    }
 
     public E min() {
         return minNode(root).element;
