@@ -1,7 +1,5 @@
 package list;
 
-import com.sun.org.apache.xpath.internal.operations.Lt;
-
 import java.util.Iterator;
 import java.util.ListIterator;
 
@@ -10,7 +8,7 @@ import java.util.ListIterator;
  *
  * @author 严书航
  */
-public class DoubleLinkedList<E> implements Iterable<E>{
+public class DoubleLinkedList<E> implements Iterable<E> {
     private int size;
     private Node<E> first;
     private Node<E> last;
