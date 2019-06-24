@@ -428,7 +428,6 @@ public class BinarySearchTree<E> implements Iterable<E> {
 
     }
 
-     * 后序遍历：使用递归版本
     private void postOrderTraversal(Node<E> node) {
         if (node.left != null) {
             postOrderTraversal(node.left);
