@@ -1,9 +1,5 @@
 package sort;
 
-import sun.security.util.Length;
-
-import java.util.Arrays;
-
 /**
  * 堆排序
  * 建立最大堆、最大值跟最后要给值替换，调整最大堆
