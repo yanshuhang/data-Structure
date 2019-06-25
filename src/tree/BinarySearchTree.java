@@ -216,7 +216,6 @@ public class BinarySearchTree<E> implements Iterable<E> {
     }
     // 删除替换方法，方法错误，而且没有意义，可以先删除后插入
 //    public boolean replace(E oldVal, E newVal) {
-//        // todo 替换了之后需要找到位置 方法有错误 需要修改
 //        Node<E> node = getNode(oldVal);
 //        if (node == null) {
 //            throw new IllegalArgumentException("this is such element in BST " + oldVal);
