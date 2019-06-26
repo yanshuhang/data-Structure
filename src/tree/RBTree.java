@@ -105,6 +105,93 @@ public class RBTree<E> {
         postOrderTraversal(root);
     }
 
+    public boolean isRBTree() {
+        if (root == null) {
+            System.out.println("RBTree is null");
+            return false;
+        }
+        if (root.red) {
+            System.out.println("root is red");
+            return false;
+        }
+        Node<E> node = minNode(root);
+        while (node != null) {
+            // 判断是否右相邻的红色
+            if (isRed(node) && (isRed(node.left) || isRed(node.right))) {
+                System.out.println("红色节点的字节点是红色");
+                return false;
+            }
+            // 遍历一便，对所有的节点其左右子树的黑高一致
+            if (blackHight(node.left) != blackHight(node.right)) {
+                System.out.println("路径中黑色节点数量不一致");
+                return false;
+            }
+            node = successor(node);
+        }
+        return true;
+    }
+
+    private int blackHight(Node<E> node) {
+        int hight = 0;
+        while (node != null) {
+            if (!isRed(node)) {
+                hight++;
+            }
+            node = node.left;
+        }
+        return hight;
+    }
+
+    /**
+     * 返回节点的后继
+     *
+     * @param node
+     * @return
+     */
+    private Node<E> successor(Node<E> node) {
+        if (node == null) {
+            return null;
+        }
+        //有右节点时，返回右节点里的最小节点
+        if (node.right != null) {
+            return minNode(node.right);
+        } else {
+            //无右节点，向上回溯，直到节点是父节点的左节点，父节点即后继节点
+            //或者parent==null：到达了根节点说明没有后继 返回null
+            Node<E> parent = node.parent;
+            while (parent != null && node == parent.right) {
+                node = parent;
+                parent = parent.parent;
+            }
+            return parent;
+        }
+    }
+
+    /**
+     * 返回节点的前驱，跟后继逻辑一样
+     *
+     * @param node
+     * @return
+     */
+    private Node<E> predecessor(Node<E> node) {
+        if (node == null) {
+            return null;
+        }
+        //有左节点时，返回左节点里的最大节点
+        if (node.left != null) {
+            return maxNode(node.left);
+        } else {
+            Node<E> parent = node.parent;
+            //无左节点，向上回溯，直到节点是父节点的右节点，父节点即前驱节点
+            //或者parent==null：到达了根节点说明没有前驱 返回null
+            while (parent != null && node == parent.left) {
+                node = parent;
+                parent = parent.parent;
+            }
+            return parent;
+        }
+    }
+
     private void preOrderTraversal(Node<E> node) {
         System.out.println(node.element);
         if (node.left != null) {
@@ -159,10 +246,12 @@ public class RBTree<E> {
                 r = node.right;
                 transplant(node, node.right);
                 size--;
+                fixAfterRemove(r);
             } else if (node.right == null) {
                 r = node.left;
                 transplant(node, node.left);
                 size--;
+                fixAfterRemove(r);
             } else {
                 // 情况3：有两个子树，使用后继替换
                 Node<E> succ = minNode(node.right);
@@ -229,6 +318,7 @@ public class RBTree<E> {
             }
         }
     }
+
     @SuppressWarnings("unchecked")
     //选择合适的比较方式：自定义的Comparator或者元素实现Comparable的compare方法
     private int compare(E e1, E e2) {
@@ -319,7 +409,7 @@ public class RBTree<E> {
                 if (isRed(brother)) {
 //                    brother.red = false;
 //                    node.parent.red = true;
-                    setRed(brother,false);
+                    setRed(brother, false);
                     setRed(node.parent, true);
                     rotateLeft(node.parent);
                     brother = node.parent.right;
@@ -330,7 +420,7 @@ public class RBTree<E> {
                 // 如果node为黑色，继续循环，相当于将问题上移了一层
                 if (!isRed(brother.left) && !isRed(brother.right)) {
 //                    brother.red = true;
-                    setRed(brother,true);
+                    setRed(brother, true);
                     node = node.parent;
                 } else {
                     // 情况3：brother的右节点为黑色，左节点为红色，brother右旋，brother的左节点占据brother的位置，将brother的指向重新赋值
@@ -339,8 +429,8 @@ public class RBTree<E> {
                     if (!isRed(brother.right)) {
 //                        brother.red = true;
 //                        brother.left.red = false;
-                        setRed(brother,true);
-                        setRed(brother.left,false);
+                        setRed(brother, true);
+                        setRed(brother.left, false);
                         rotateRight(brother);
                         brother = node.parent.right;
                     }
@@ -352,7 +442,7 @@ public class RBTree<E> {
                     brother.red = isRed(node.parent);
 //                    node.parent.red = false;
 //                    brother.right.red = false;
-                    setRed(node.parent,false);
+                    setRed(node.parent, false);
                     setRed(brother.right, false);
                     rotateLeft(node.parent);
                     node = root;
@@ -363,29 +453,29 @@ public class RBTree<E> {
                 if (isRed(brother)) {
 //                    brother.red = false;
 //                    node.parent.red = true;
-                    setRed(brother,false);
-                    setRed(node.parent,true);
+                    setRed(brother, false);
+                    setRed(node.parent, true);
                     rotateRight(node.parent);
                     brother = node.parent.left;
                 }
                 if (!isRed(brother.left) && !isRed(brother.right)) {
 //                    brother.red = true;
-                    setRed(brother,true);
+                    setRed(brother, true);
                     node = node.parent;
                 } else {
                     if (!isRed(brother.left)) {
 //                        brother.red = true;
 //                        brother.right.red = false;
-                        setRed(brother,true);
-                        setRed(brother.right,false);
+                        setRed(brother, true);
+                        setRed(brother.right, false);
                         rotateLeft(brother);
                         brother = node.parent.left;
                     }
                     brother.red = isRed(node.parent);
 //                    node.parent.red = false;
 //                    brother.left.red = false;
-                    setRed(node.parent,false);
-                    setRed(brother.left,false);
+                    setRed(node.parent, false);
+                    setRed(brother.left, false);
                     rotateRight(node.parent);
                     node = root;
                 }
@@ -398,6 +488,15 @@ public class RBTree<E> {
         if (node != null) {
             while (node.left != null) {
                 node = node.left;
+            }
+        }
+        return node;
+    }
+
+    private Node<E> maxNode(Node<E> node) {
+        if (node != null) {
+            while (node.right != null) {
+                node = node.right;
             }
         }
         return node;
